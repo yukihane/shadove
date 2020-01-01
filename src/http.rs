@@ -24,14 +24,3 @@ fn convert(src: Vec<Value>) -> Vec<Card> {
         .map(|x| serde_json::from_value::<Card>(x).unwrap())
         .collect::<Vec<Card>>()
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    #[test]
-    fn it_works() {
-        let resp = tokio::runtime::Runtime::new().unwrap().block_on(get());
-        let cards = resp.unwrap();
-        println!("{:#?}", cards[3])
-    }
-}
