@@ -1,7 +1,7 @@
 use crate::card::Card;
 use serde_json::Value;
 
-pub async fn sample_get() -> Result<Vec<Card>, Box<dyn std::error::Error>> {
+pub async fn get() -> Result<Vec<Card>, Box<dyn std::error::Error>> {
     let v: Value =
         reqwest::get("https://shadowverse-portal.com/api/v1/cards?format=json&lang=ja&clan=1")
             .await?
@@ -30,9 +30,7 @@ mod tests {
     use super::*;
     #[test]
     fn it_works() {
-        let resp = tokio::runtime::Runtime::new()
-            .unwrap()
-            .block_on(sample_get());
+        let resp = tokio::runtime::Runtime::new().unwrap().block_on(get());
         let cards = resp.unwrap();
         println!("{:#?}", cards[3])
     }
