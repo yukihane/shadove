@@ -8,7 +8,7 @@ pub struct Card {
     pub card_set_id: CardSetId,
     pub card_name: Option<String>,
     pub is_foil: u8,
-    pub char_type: u8,
+    pub char_type: CharType,
     pub clan: Clan,
     pub tribe_name: String,
     pub skill: String,
@@ -131,4 +131,15 @@ pub enum CardSetId {
     Promo13 = 70013,
     // 名称なし
     NotSpecified = 90000,
+}
+
+// カードの種類
+// shadowverse-portal.com の表記は間違っているっぽい
+#[derive(Serialize_repr, Deserialize_repr, PartialEq, Eq, PartialOrd, Ord, Debug)]
+#[repr(u8)]
+pub enum CharType {
+    Follower = 1,
+    Amulet = 2,
+    CountdownAmulet = 3,
+    Spell = 4,
 }
