@@ -2,11 +2,10 @@ use crate::card::Card;
 use serde_json::Value;
 
 pub async fn get() -> Result<Vec<Card>, Box<dyn std::error::Error>> {
-    let v: Value =
-        reqwest::get("https://shadowverse-portal.com/api/v1/cards?format=json&lang=ja&clan=1")
-            .await?
-            .json()
-            .await?;
+    let v: Value = reqwest::get("https://shadowverse-portal.com/api/v1/cards?format=json&lang=ja")
+        .await?
+        .json()
+        .await?;
 
     let cards = v["data"]["cards"].as_array().unwrap().clone();
     let cards = convert(cards);
