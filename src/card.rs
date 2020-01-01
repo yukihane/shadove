@@ -43,7 +43,7 @@ pub struct Card {
 // 参考:
 // https://doc.rust-lang.org/rust-by-example/custom_types/enum/c_like.html
 // https://serde.rs/enum-number.html
-#[derive(Serialize_repr, Deserialize_repr, PartialEq, Debug)]
+#[derive(Serialize_repr, Deserialize_repr, PartialEq, Eq, PartialOrd, Ord, Debug)]
 #[repr(u8)]
 pub enum Clan {
     // ニュートラル
