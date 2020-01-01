@@ -12,13 +12,3 @@ pub fn read() -> Vec<Card> {
     let reader = BufReader::new(File::open("data.bin").unwrap());
     serde_json::from_reader(reader).unwrap()
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    #[test]
-    fn it_works() {
-        let res = read();
-        println!("{:#?}", res);
-    }
-}
