@@ -5,7 +5,7 @@ pub struct Card {
     card_id: u64,
     foil_card_id: u64,
     card_set_id: u64,
-    card_name: String,
+    card_name: Option<String>,
     is_foil: u8,
     char_type: u8,
     clan: u8,
