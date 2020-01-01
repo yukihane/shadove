@@ -1,4 +1,5 @@
 use serde::{Deserialize, Serialize};
+use serde_repr::{Deserialize_repr, Serialize_repr};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Card {
@@ -8,7 +9,7 @@ pub struct Card {
     pub card_name: Option<String>,
     pub is_foil: u8,
     pub char_type: u8,
-    pub clan: u8,
+    pub clan: Clan,
     pub tribe_name: String,
     pub skill: String,
     pub skill_condition: String,
@@ -36,4 +37,31 @@ pub struct Card {
     pub normal_card_id: u64,
     pub format_type: u8,
     pub restricted_count: u32,
+}
+
+// クラス
+// 参考:
+// https://doc.rust-lang.org/rust-by-example/custom_types/enum/c_like.html
+// https://serde.rs/enum-number.html
+#[derive(Serialize_repr, Deserialize_repr, PartialEq, Debug)]
+#[repr(u8)]
+pub enum Clan {
+    // ニュートラル
+    Neutral,
+    // エルフ
+    Forestcraft,
+    // ロイヤル
+    Swordcraft,
+    // ウィッチ
+    Runecraft,
+    // ドラゴン
+    Dragoncraft,
+    // ネクロマンサー
+    Shadowcraft,
+    // ヴァンパイア
+    Bloodcraft,
+    // ビショップ
+    Havencraft,
+    // ネメシス
+    Portalcraft,
 }
