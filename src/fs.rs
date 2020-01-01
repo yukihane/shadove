@@ -7,14 +7,3 @@ pub fn write(cards: &[Card]) {
 
     serde_json::to_writer_pretty(writer, cards).unwrap();
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    #[test]
-    fn it_works() {
-        let card = Card::default();
-        let cards = vec![card];
-        write(&cards[..]);
-    }
-}
