@@ -62,7 +62,9 @@ fn write_raw_value_to_local(bytes: &Bytes) -> Result<(), Error> {
 pub fn find_all() -> Result<Vec<Card>, Error> {
     let file = File::open(SAVE_FILE)?;
     let reader = BufReader::new(file);
-    serde_json::from_reader(reader).map_err(Error::from)
+    let value: Value = serde_json::from_reader(reader)?;
+
+    serde_json::from_value(value["data"]["cards"].clone()).map_err(Error::from)
 }
 
 #[cfg(test)]
