@@ -40,7 +40,7 @@ pub struct Card {
     pub evo_atk: u8,
     /// 進化後の体力
     pub evo_life: u8,
-    pub rarity: u8,
+    pub rarity: Rarity,
     pub get_red_ether: u32,
     pub use_red_ether: u32,
     pub description: String,
@@ -157,4 +157,14 @@ pub enum CharType {
     Amulet = 2,
     CountdownAmulet = 3,
     Spell = 4,
+}
+
+/// レアリティ
+#[derive(Serialize_repr, Deserialize_repr, PartialEq, Eq, PartialOrd, Ord, Debug)]
+#[repr(u8)]
+pub enum Rarity {
+    Bronze = 1,
+    Silver = 2,
+    Gold = 3,
+    Legendary = 4,
 }
