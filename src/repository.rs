@@ -7,30 +7,27 @@ use std::io::{BufReader, BufWriter, Error};
 static SAVE_FILE: &str = "data.bin";
 
 pub fn fetch_force() {
-    let resp = tokio::runtime::Runtime::new()
+    let json = tokio::runtime::Runtime::new()
         .unwrap()
         .block_on(read_value_from_remote())
         .unwrap();
-    write_value_to_local(resp.as_slice()).unwrap();
+    write_value_to_local(&json).unwrap();
 }
 
-async fn read_value_from_remote() -> Result<Vec<Value>, Box<dyn std::error::Error>> {
+async fn read_value_from_remote() -> Result<Value, Box<dyn std::error::Error>> {
     let v: Value = reqwest::get("https://shadowverse-portal.com/api/v1/cards?format=json&lang=ja")
         .await?
         .json()
         .await?;
 
-    let cards = v["data"]["cards"].as_array().unwrap().clone();
-    //    let cards = convert(cards);
-
-    Ok(cards)
+    Ok(v)
 }
 
-fn write_value_to_local(cards: &[Value]) -> Result<(), Error> {
+fn write_value_to_local(json: &Value) -> Result<(), Error> {
     let file = File::create(SAVE_FILE)?;
     let writer = BufWriter::new(file);
 
-    serde_json::to_writer_pretty(writer, cards)?;
+    serde_json::to_writer_pretty(writer, json)?;
 
     Ok(())
 }
