@@ -35,17 +35,6 @@ fn write_value_to_local(cards: &[Value]) -> Result<(), Error> {
     Ok(())
 }
 
-fn convert(src: Vec<Value>) -> Vec<Card> {
-    src.into_iter()
-        //        .map(|x| {
-        //            let text = format!("{:#?}", &x);
-        //            let y = serde_json::from_value::<Card>(x);
-        //            y.expect(&text)
-        //        })
-        .map(|x| serde_json::from_value::<Card>(x).unwrap())
-        .collect::<Vec<Card>>()
-}
-
 pub fn find_all() -> Result<Vec<Card>, Error> {
     let file = File::open(SAVE_FILE)?;
     let reader = BufReader::new(file);
